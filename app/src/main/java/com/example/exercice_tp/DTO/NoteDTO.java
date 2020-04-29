@@ -4,12 +4,15 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import com.google.gson.annotations.SerializedName;
+
 @Entity(tableName = "notes")
 public class NoteDTO {
 
     @PrimaryKey(autoGenerate = true)
     public long noteId = 0;
 
+    @SerializedName("libelle")
     public String libelle;
     // Exemple d'attribut non pris en compte par Room :
 
