@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "f3fef9c12370bf09fadc235fd95fdba5",
+    "identityHash": "99a16a0fd1f26e098dfad542e1597085",
     "entities": [
       {
         "tableName": "notes",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`noteId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `libelle` TEXT, `selectionne` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`noteId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `libelle` TEXT)",
         "fields": [
           {
             "fieldPath": "noteId",
@@ -19,12 +19,6 @@
             "columnName": "libelle",
             "affinity": "TEXT",
             "notNull": false
-          },
-          {
-            "fieldPath": "selectionne",
-            "columnName": "selectionne",
-            "affinity": "INTEGER",
-            "notNull": true
           }
         ],
         "primaryKey": {
@@ -40,7 +34,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f3fef9c12370bf09fadc235fd95fdba5')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '99a16a0fd1f26e098dfad542e1597085')"
     ]
   }
 }

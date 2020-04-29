@@ -68,18 +68,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // Get data
         listNotes = AppDatabaseHelper.getDatabase(this).noteDAO().getListeNotes();
-        notesAdapter = new NotesAdapter(listNotes, this);
-        recyclerView.setAdapter(notesAdapter);
 
         /* START - POUR LES INTERACTIONS ET AFFICHAGE DU MEMO */
 
         // à ajouter pour de meilleures performances :
         recyclerView.setHasFixedSize(true);
 
+
+
         // Layout manager, décrivant comment les items sont disposés :
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
+        notesAdapter = new NotesAdapter(listNotes, this);
+        recyclerView.setAdapter(notesAdapter);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelperCallback(notesAdapter));
         itemTouchHelper.attachToRecyclerView(recyclerView);
         /* END - POUR LES INTERACTIONS ET AFFICHAGE DU MEMO */
@@ -92,7 +94,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Check limit character
         maxChar = 30;
         charWrited = 0;
-        final String[] charWrited_S = {null};
 
         editTextNote.addTextChangedListener(new TextWatcher(){
             @Override
@@ -133,9 +134,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         postToWebService(v);
 
     }
-
     public void openDetails(){
+/*
         startActivity(intent);
+*/
 
     }
 

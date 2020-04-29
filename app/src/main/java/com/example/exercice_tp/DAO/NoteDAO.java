@@ -15,7 +15,7 @@ public abstract class NoteDAO {
     @Query("SELECT * FROM notes")
     public abstract List<NoteDTO> getListeNotes();
     @Query("SELECT COUNT(*) FROM notes WHERE libelle = :libelle")
-    public abstract long countNotesParIntitule(String libelle);
+    public abstract long countNotesBtLibelle(String libelle);
     @Insert
     public abstract void insert(NoteDTO... notes);
     @Update
