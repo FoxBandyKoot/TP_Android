@@ -16,7 +16,7 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
     public NoteViewHolder(View itemView)
     {
         super(itemView);
-        textViewLibelleNote = itemView.findViewById(R.id.libelle_notes);
+        textViewLibelleNote = itemView.findViewById(R.id.libelle_note);
     }
 
 }

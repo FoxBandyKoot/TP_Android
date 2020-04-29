@@ -10,11 +10,11 @@
             android:id="@+id/etNote"
             android:layout_height="100dp"
             android:layout_width="0dp"
-            android:maxLength="30"
             app:layout_constraintBottom_toBottomOf="@+id/buttonAddNote"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/buttonAddNote"
-            app:layout_constraintTop_toTopOf="@+id/buttonAddNote"/>
+            app:layout_constraintTop_toTopOf="@+id/buttonAddNote">
+        ></EditText>
 
         <Button
             android:id="@+id/buttonAddNote"
@@ -24,7 +24,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/etNote"
             app:layout_constraintLeft_toRightOf="@id/etNote"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/etNote" />
+            app:layout_constraintTop_toTopOf="@+id/etNote">
+        </Button>
 
         <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/liste_notes"

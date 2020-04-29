@@ -1,23 +1,25 @@
 package com.example.exercice_tp;
 
         import androidx.appcompat.app.AppCompatActivity;
-        import androidx.fragment.app.FragmentManager;
-        import androidx.fragment.app.FragmentTransaction;
         import androidx.recyclerview.widget.ItemTouchHelper;
         import androidx.recyclerview.widget.LinearLayoutManager;
         import androidx.recyclerview.widget.RecyclerView;
 
+        import android.content.Context;
         import android.content.Intent;
         import android.os.Bundle;
+        import android.text.Editable;
+        import android.text.TextWatcher;
         import android.util.Log;
         import android.view.View;
         import android.widget.Button;
         import android.widget.EditText;
+        import android.widget.Toast;
 
+        import com.example.exercice_tp.DAO.AppDatabaseHelper;
         import com.example.exercice_tp.DTO.NoteDTO;
         import com.example.exercice_tp.memo.ItemTouchHelperCallback;
         import com.example.exercice_tp.memo.NotesAdapter;
-        import com.example.exercice_tp.modeles.Note;
         import com.google.gson.Gson;
         import com.loopj.android.http.AsyncHttpClient;
         import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -30,11 +32,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private static final String TAG = MainActivity.class.getName();
 
-    List<Note> listNotes = new ArrayList<>();
-    NotesAdapter notesAdapter = new NotesAdapter(listNotes, this);
-    EditText editTextNote;
-    RecyclerView recyclerView;
-    Intent intent;
+    private List<NoteDTO> listNotes;
+    private NotesAdapter notesAdapter;
+    private EditText editTextNote;
+    private Button bouton;
+    private RecyclerView recyclerView;
+    private Intent intent;
+    private int maxChar;
+    private int charWrited;
 
     // client HTTP :
     AsyncHttpClient client = new AsyncHttpClient();
@@ -50,47 +55,72 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         recyclerView = findViewById(R.id.liste_notes);
         editTextNote = findViewById(R.id.etNote);
+        bouton = findViewById(R.id.buttonAddNote);
 
-        Button bouton = findViewById(R.id.buttonAddNote);
-        bouton.setOnClickListener(this);
+        // Get data
+        listNotes = AppDatabaseHelper.getDatabase(this).noteDAO().getListeNotes();
 
         /* START - POUR LES INTERACTIONS ET AFFICHAGE DU MEMO */
+        bouton.setOnClickListener(this);
 
         // à ajouter pour de meilleures performances :
         recyclerView.setHasFixedSize(true);
 
-        // layout manager, décrivant comment les items sont disposés :
+        // Layout manager, décrivant comment les items sont disposés :
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        // adapter :
+        notesAdapter = new NotesAdapter(listNotes, this);
         recyclerView.setAdapter(notesAdapter);
 
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(
-                new ItemTouchHelperCallback(notesAdapter));
-        itemTouchHelper.attachToRecyclerView(recyclerView);
 
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelperCallback(notesAdapter));
+        itemTouchHelper.attachToRecyclerView(recyclerView);
         /* END - POUR LES INTERACTIONS ET AFFICHAGE DU MEMO */
 
+
         /* START - POUR LES DETAILS DU MEMO */
-
-
         intent = new Intent(recyclerView.getContext(), DetailActivity.class);
-
-
         /* END - POUR LES DETAILS DU MEMO */
 
+        // Check limit character
+        maxChar = 30;
+        charWrited = 0;
+        final String[] charWrited_S = {null};
 
-
-
+        editTextNote.addTextChangedListener(new TextWatcher(){
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                charWrited = editTextNote.length();
+                if (charWrited == maxChar){
+                    Toast.makeText(getApplicationContext(), "30 characters maximum.", Toast.LENGTH_LONG).show();
+                    bouton.setEnabled(false);
+                } else {
+                    bouton.setEnabled(true);
+                }
+            }
+            /* Unused methods */
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override
+            public void afterTextChanged(Editable editable) { }
+        });
     }
 
+    /**
+     * Create note
+     * @param v
+     */
     @Override
     public void onClick(View v) {
-        final String libelleMemo = editTextNote.getText().toString();
-        requestParams.put("memo", libelleMemo);
-
-
+        NoteDTO noteDTO = new NoteDTO(editTextNote.getText().toString());
+        // Display it screen
+        listNotes.add(noteDTO);
+        notesAdapter.notifyItemInserted(listNotes.size());
+        AppDatabaseHelper.getDatabase(this).noteDAO().insert(noteDTO);
+        Log.e(TAG, noteDTO.libelle);
+/*        // Code pour bdd externe
+        requestParams.put("libelle", noteDTO.libelle);
         // appel :
         client.post("http://httpbin.org/post", requestParams, new AsyncHttpResponseHandler() {
 
@@ -106,10 +136,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // TO FINISH
                 NoteDTO noteDTO = gson.fromJson(retour, NoteDTO.class);
                 // TODO -> affichage d'un attribut DANS UN TOAST APRES:
-               /* Log.i(TAG, noteDTO.libelle);*/
+                Log.i(TAG, noteDTO.libelle);
 
                 // Display it screen
-                listNotes.add(0, new Note(libelleMemo));
+                listNotes.add(0, new NoteDTO(noteDTO.libelle));
                 recyclerView.setAdapter(notesAdapter);
 
             }
@@ -118,11 +148,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, byte[] responseBody, Throwable error){
                     Log.e(TAG, error.toString());
             }
-
-        });
+        });*/
     }
 
-    public void openDetails(View v){
+        public void openDetails(View v){
                startActivity(intent);
     }
 

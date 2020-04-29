@@ -4,6 +4,7 @@ public class Note {
 
     // Attributs :
     public String libelle;
+
     // Constructeur :
     public Note(String libelle)
     {

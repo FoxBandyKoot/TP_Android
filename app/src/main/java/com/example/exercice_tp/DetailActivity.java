@@ -13,6 +13,7 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+        Bundle bundle = new Bundle();
         // fragment :
         DetailFragment fragment = new DetailFragment();
         // fragment manager :
@@ -22,5 +23,6 @@ public class DetailActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.containerFragmentDetail, fragment, "detailFragment");
         fragmentTransaction.commit();
 
+        fragment.setArguments(bundle);
     }
 }
