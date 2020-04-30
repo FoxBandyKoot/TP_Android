@@ -20,11 +20,8 @@ import java.util.List;
 
 public class NotesAdapter extends RecyclerView.Adapter<NoteViewHolder> {
 
-
     private static final String TAG = NotesAdapter.class.getName();
     private final AppCompatActivity activity;
-
-    // Liste d'objets métier :
     private List<NoteDTO> listeNotes;
 
     /* private Activity (AppCompatActivity) activity ; */
@@ -32,7 +29,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NoteViewHolder> {
     // Constructeur :
     public NotesAdapter(List<NoteDTO> listeCourses, AppCompatActivity activity)
     {
-        this.activity = activity; // POUR LE LANDSCAPE
+        this.activity = activity; // FOR LANDSCAPE
         this.listeNotes = listeCourses;
     }
 
@@ -40,23 +37,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NoteViewHolder> {
     public NoteViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
         View viewCourse = LayoutInflater.from(parent.getContext()).inflate(R.layout.note_items_liste, parent, false);
-
-/*
-        Switch switch
-
-        // fragment :
-/*      DetailFragment fragment = new DetailFragment();
-        fragment.setArguments(bundle);
-
-        // fragment manager :
-        FragmentManager fragmentManager = activity.getSupportFragmentManager(); // TODO -> IL FAUT ABSOLUMENT CETTE FONCTION ICI
-        // transaction :
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.containerFragmentDetail, fragment, "detailFragment");
-        fragmentTransaction.commit();
-*/
-
-        return new NoteViewHolder(viewCourse);
+        /*Switch switch*/
+        return new NoteViewHolder(viewCourse, listeNotes, activity);
     }
 
     @Override

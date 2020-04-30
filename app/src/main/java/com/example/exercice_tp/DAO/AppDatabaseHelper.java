@@ -5,10 +5,10 @@ import android.content.Context;
 import androidx.room.Room;
 
 public class AppDatabaseHelper {
-    // Attributs :
+
     private static AppDatabaseHelper databaseHelper = null;
     private AppDatabase database;
-    // Constructeur :
+
     private AppDatabaseHelper(Context context)
     {
         database = Room
@@ -16,13 +16,13 @@ public class AppDatabaseHelper {
                 .allowMainThreadQueries()
                 .build();
     }
-    // Getter instance :
+
+
     public static synchronized AppDatabase getDatabase(Context context)
     {
         if (databaseHelper == null)
         {
-            databaseHelper = new AppDatabaseHelper(
-                    context.getApplicationContext());
+            databaseHelper = new AppDatabaseHelper(context.getApplicationContext());
         }
         return databaseHelper.database;
     }

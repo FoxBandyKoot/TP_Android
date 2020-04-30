@@ -12,20 +12,21 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-/*
-        String libelle = getIntent().getStringExtra("libelle");
-        String details = getIntent().getStringExtra("details");*/
 
-        Bundle bundle = new Bundle();
-        // fragment :
         DetailFragment fragment = new DetailFragment();
-        // fragment manager :
+
+        String libelle = getIntent().getStringExtra("libelle");
+/*      String details = getIntent().getStringExtra("details");*/
+
+        // prepare fragment :
+        Bundle bundle = new Bundle();
+        bundle.putString("libelle", libelle);
+        fragment.setArguments(bundle);
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         // transaction :
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.containerFragmentDetail, fragment, "detailFragment");
+        fragmentTransaction.replace(R.id.containerFragmentDetail, fragment, "detailFragment"); // TODO CHECK HERE IF DOES NOT WORK
         fragmentTransaction.commit();
-
-        fragment.setArguments(bundle);
     }
 }

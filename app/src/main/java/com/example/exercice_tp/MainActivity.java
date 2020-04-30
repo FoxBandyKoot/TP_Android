@@ -34,7 +34,6 @@ package com.example.exercice_tp;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private static final String TAG = MainActivity.class.getName();
-
     private List<NoteDTO> listNotes;
     private NotesAdapter notesAdapter;
     private EditText editTextNote;
@@ -50,14 +49,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-
-        // init :
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recyclerView = findViewById(R.id.liste_notes);
         editTextNote = findViewById(R.id.etNote);
         bouton = findViewById(R.id.buttonAddNote);
-        bouton.setOnClickListener(this);
 
         final LayoutInflater factory = getLayoutInflater();
         final View textEntryView = factory.inflate(R.layout.note_items_liste, null);
@@ -69,25 +65,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         recyclerView.setAdapter(notesAdapter);
         recyclerView.setHasFixedSize(true);
 
-        /* START - INTERACTIONS ET AFFICHAGE DU MEMO */
-
-
-
+        /* START - INTERACTIONS ET AFFICHAGE DES NOTES */
         // Décrit la disposition des items
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
+        checkLimitCharacter();
+        bouton.setOnClickListener(this); // Create note
+
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelperCallback(notesAdapter));
         itemTouchHelper.attachToRecyclerView(recyclerView);
-        /* END - INTERACTIONS ET AFFICHAGE DU MEMO */
-
-
-        /* START - POUR LES DETAILS DU MEMO */
-        intent = new Intent(recyclerView.getContext(), DetailActivity.class);
-        /* END - POUR LES DETAILS DU MEMO */
-
-        checkLimitCharacter();
-
+        /* END - INTERACTIONS ET AFFICHAGE DES NOTES */
     }
 
     /**
@@ -126,19 +114,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         listNotes.add(noteDTO);
         notesAdapter.notifyItemInserted(listNotes.size());
         AppDatabaseHelper.getDatabase(getApplicationContext()).noteDAO().insert(noteDTO); // Save to Android Database
-    }
-
-
-    public void postToWebServiceAndOpenDetails(View v){
-        openDetails();
-        postToWebService(v);
-    }
-
-    public void openDetails(){
-/*
-        startActivity(intent);
-*/
-
     }
 
     /**
