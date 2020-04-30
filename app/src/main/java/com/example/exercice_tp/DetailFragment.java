@@ -21,14 +21,10 @@ public class DetailFragment extends Fragment {
 
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_detail, container, false);
 
-        String libelle = getArguments().getString("libelle", "COUCOU");
-        EditText libelleEditText = root.findViewById(R.id.libelle_fragment);
+        String libelle = getArguments().getString("libelle", "BUGGED");
+        TextView libelleEditText = root.findViewById(R.id.libelle_fragment);
         libelleEditText.setText(libelle);
 
-        /* DESCRIPTION
-        TextView description = root.findViewById(R.id.description);
-        description.setText(memoDescription);
-        */
-        return inflater.inflate(R.layout.fragment_detail, container, false);
+        return root;
     }
 }

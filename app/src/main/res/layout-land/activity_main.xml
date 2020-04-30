@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#060E0B"
     tools:context=".MainActivity">
 
         <EditText
             android:id="@+id/etNote"
             android:layout_height="100dp"
             android:layout_width="0dp"
+            android:background="#00ED94"
             app:layout_constraintBottom_toBottomOf="@+id/buttonAddNote"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/buttonAddNote"
@@ -20,6 +22,7 @@
             android:id="@+id/buttonAddNote"
             android:layout_height="100dp"
             android:layout_width="100dp"
+            android:background="#02FA9D"
             android:text="ADD NOTE !"
             app:layout_constraintBottom_toBottomOf="@+id/etNote"
             app:layout_constraintLeft_toRightOf="@id/etNote"

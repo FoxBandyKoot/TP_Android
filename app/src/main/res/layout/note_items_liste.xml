@@ -6,6 +6,7 @@
         android:id="@+id/libelle_note"
         android:onClick="postToWebService"
         android:clickable="true"
+        android:textColor="#F8F6F6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 </FrameLayout>

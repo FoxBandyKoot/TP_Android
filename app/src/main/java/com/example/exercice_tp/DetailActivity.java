@@ -16,12 +16,12 @@ public class DetailActivity extends AppCompatActivity {
         DetailFragment fragment = new DetailFragment();
 
         String libelle = getIntent().getStringExtra("libelle");
-/*      String details = getIntent().getStringExtra("details");*/
 
         // prepare fragment :
         Bundle bundle = new Bundle();
-        bundle.putString("libelle", libelle);
         fragment.setArguments(bundle);
+
+        bundle.putString("libelle", libelle);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         // transaction :

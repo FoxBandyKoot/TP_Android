@@ -37,14 +37,12 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
                 if (orientation == Configuration.ORIENTATION_PORTRAIT && (screenSize == Configuration.SCREENLAYOUT_SIZE_NORMAL || screenSize == Configuration.SCREENLAYOUT_SIZE_SMALL)) {
                     Intent intent = new Intent(view.getContext(), DetailActivity.class);
                     intent.putExtra("libelle", noteDTO.libelle);
-                    /*intent.putExtra("memoDescription", memoDTO.description);*/
                     view.getContext().startActivity(intent);
                 } else {
                     DetailFragment fragment = new DetailFragment();
                     Bundle bundle = new Bundle();
                     fragment.setArguments(bundle);
                     bundle.putString("libelle", noteDTO.libelle);
-                    /*bundle.putString("memoDescription", noteDTO.description);*/
 
                     FragmentManager fragmentManager = activity.getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
