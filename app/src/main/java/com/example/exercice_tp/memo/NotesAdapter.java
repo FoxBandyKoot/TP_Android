@@ -80,7 +80,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NoteViewHolder> {
     }
 
     // Appelé une fois à la suppression.
-    public void onItemDismiss(int position)
+    public void
+    onItemDismiss(int position)
     {
         NoteDTO noteDTO = listeNotes.get(position);
         AppDatabaseHelper.getDatabase(activity).noteDAO().delete(noteDTO);

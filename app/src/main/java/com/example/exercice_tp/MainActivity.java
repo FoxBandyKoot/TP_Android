@@ -44,10 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Intent intent;
     private int maxChar;
     private int charWrited;
-
-    // client HTTP :
     private AsyncHttpClient client = new AsyncHttpClient();
-    // paramètres :
     private RequestParams requestParams = new RequestParams();
 
     @Override
@@ -68,39 +65,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // Get data
         listNotes = AppDatabaseHelper.getDatabase(this).noteDAO().getListeNotes();
-
-        /* START - POUR LES INTERACTIONS ET AFFICHAGE DU MEMO */
-
-        // à ajouter pour de meilleures performances :
+        notesAdapter = new NotesAdapter(listNotes, this);
+        recyclerView.setAdapter(notesAdapter);
         recyclerView.setHasFixedSize(true);
 
+        /* START - INTERACTIONS ET AFFICHAGE DU MEMO */
 
 
-        // Layout manager, décrivant comment les items sont disposés :
+
+        // Décrit la disposition des items
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        notesAdapter = new NotesAdapter(listNotes, this);
-        recyclerView.setAdapter(notesAdapter);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelperCallback(notesAdapter));
         itemTouchHelper.attachToRecyclerView(recyclerView);
-        /* END - POUR LES INTERACTIONS ET AFFICHAGE DU MEMO */
+        /* END - INTERACTIONS ET AFFICHAGE DU MEMO */
 
 
         /* START - POUR LES DETAILS DU MEMO */
         intent = new Intent(recyclerView.getContext(), DetailActivity.class);
         /* END - POUR LES DETAILS DU MEMO */
 
-        // Check limit character
+        checkLimitCharacter();
+
+    }
+
+    /**
+     * Check limit character
+     */
+    public void checkLimitCharacter(){
         maxChar = 30;
         charWrited = 0;
-
         editTextNote.addTextChangedListener(new TextWatcher(){
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 charWrited = editTextNote.length();
                 if (charWrited == maxChar){
-                    Toast.makeText(getApplicationContext(), "30 characters maximum.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "30 characters maximum", Toast.LENGTH_LONG).show();
                     bouton.setEnabled(false);
                 } else {
                     bouton.setEnabled(true);
@@ -108,9 +109,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             /* Unused methods */
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override
-            public void afterTextChanged(Editable editable) { }
+            public void afterTextChanged(Editable editable) {}
         });
     }
 
@@ -130,10 +131,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void postToWebServiceAndOpenDetails(View v){
         openDetails();
-
         postToWebService(v);
-
     }
+
     public void openDetails(){
 /*
         startActivity(intent);
@@ -165,10 +165,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     e.printStackTrace();
                 }
 
-                // TODO -> affichage d'un attribut DANS UN TOAST APRES:
                 if (noteDTOBack.libelle != null && noteDTOBack.libelle.length() >= 1){
                     Toast.makeText(getApplicationContext(), noteDTOBack.libelle, Toast.LENGTH_LONG).show();
-
                 }
             }
 
