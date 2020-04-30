@@ -6,6 +6,7 @@ package com.example.exercice_tp;
         import androidx.recyclerview.widget.RecyclerView;
 
         import android.content.Intent;
+        import android.content.res.Configuration;
         import android.os.Bundle;
         import android.text.Editable;
         import android.text.TextWatcher;
@@ -70,7 +71,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
+/*
         checkLimitCharacter();
+*/
         bouton.setOnClickListener(this); // Create note
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelperCallback(notesAdapter));

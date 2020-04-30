@@ -7,7 +7,7 @@
 
     <TextView
         android:id="@+id/libelle_fragment"
-        android:background="#060E0B"
+        android:background="#294238"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:textColor="#F8F6F6" />

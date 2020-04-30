@@ -19,9 +19,8 @@ public class DetailActivity extends AppCompatActivity {
 
         // prepare fragment :
         Bundle bundle = new Bundle();
-        fragment.setArguments(bundle);
-
         bundle.putString("libelle", libelle);
+        fragment.setArguments(bundle);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         // transaction :

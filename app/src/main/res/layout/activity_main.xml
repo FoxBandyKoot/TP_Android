@@ -11,12 +11,12 @@
             android:id="@+id/etNote"
             android:layout_height="100dp"
             android:layout_width="0dp"
-            android:maxLength="30"
             android:background="#00ED94"
             app:layout_constraintBottom_toBottomOf="@+id/buttonAddNote"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/buttonAddNote"
             app:layout_constraintTop_toTopOf="@+id/buttonAddNote"/>
+<!--        android:maxLength="30"-->
 
         <Button
             android:id="@+id/buttonAddNote"
