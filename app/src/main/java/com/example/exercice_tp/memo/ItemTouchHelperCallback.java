@@ -3,6 +3,9 @@ package com.example.exercice_tp.memo;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+/**
+ * Ce fichier gère les intéractions du tactile
+ */
 public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
 
     private NotesAdapter adapter;

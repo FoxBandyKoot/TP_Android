@@ -1,19 +1,14 @@
 package com.example.exercice_tp.memo;
 
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.exercice_tp.DTO.NoteDTO;
 import com.example.exercice_tp.DetailActivity;
-import com.example.exercice_tp.DetailFragment;
 import com.example.exercice_tp.R;
 
 import java.util.List;
@@ -36,11 +31,6 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
                     view.getContext().startActivity(intent);
             }
         });
-    }
-
-    public NoteDTO getAdapterPositionPourAdapter(List<NoteDTO> listNotesDTO){
-        NoteDTO noteDTO = listNotesDTO.get(getAdapterPosition());
-        return noteDTO;
     }
 
 }

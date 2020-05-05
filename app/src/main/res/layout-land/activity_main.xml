@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/landMainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#060E0B"
@@ -40,11 +41,9 @@
             android:id="@+id/containerFragmentDetail"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            app:layout_constraintLeft_toLeftOf="@id/buttonAddNote"
-            app:layout_constraintStart_toEndOf="parent"
-
-            tools:context=".DetailActivity"
-            tools:layout_editor_absoluteY="41dp"></FrameLayout>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/liste_notes"
+            tools:context=".DetailActivity"></FrameLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
